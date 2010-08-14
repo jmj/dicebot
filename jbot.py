@@ -30,17 +30,13 @@ class JBot(JabberBot):
             numdice = 0
         try:
             numsides = int(nsides)
-        except:
-            numdice = -1
-        try:
             bonus = int(bonus)
         except:
-            return "I'm confused again  "
+            numdice = -1
 
         if numdice <= 0:
             return 'Hu?? ', tmp
 
-        #rnd = random.SystemRandom()
         rnd = random.Random()
 
         x = 0
@@ -51,9 +47,6 @@ class JBot(JabberBot):
             r = '%s %s' % (r,s)
 
         return '%s\nTotal: %s' % (r, x+bonus)
-
-
-
 
 if __name__ == '__main__':
     bot = JBot('jbot@letifer.org', 'sl1me2')

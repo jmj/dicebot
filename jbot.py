@@ -9,9 +9,21 @@ class JBot(JabberBot):
         '''Causes the bor to roll dice:
         roll 6d6
         as an example'''
-        (ndice, nsides) = args.upper().split('D')
+        (ndice, nbsides) = args.upper().split('D')
+
+        tmp = nbsides.split('+')
+        nsides = tmp[0]
+        if len(tmp) == 1:
+            bonus = 0
+        elif len(tmp) == 2:
+            bonus = tmp[1]
+        else:
+            return "I'm confised"
+
         if ndice == '':
             ndice = 1
+
+
         try:
             numdice = int(ndice)
         except:
@@ -19,10 +31,14 @@ class JBot(JabberBot):
         try:
             numsides = int(nsides)
         except:
-            numdice = 0
+            numdice = -1
+        try:
+            bonus = int(bonus)
+        except:
+            return "I'm confused again  "
 
         if numdice <= 0:
-            return 'Hu??'
+            return 'Hu?? ', tmp
 
         #rnd = random.SystemRandom()
         rnd = random.Random()
@@ -34,7 +50,7 @@ class JBot(JabberBot):
             x = x + s
             r = '%s %s' % (r,s)
 
-        return '%s\nTotal: %s' % (r, x)
+        return '%s\nTotal: %s' % (r, x+bonus)
 
 
 
